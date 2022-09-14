@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+</head>
+
+<body>
+    <form action="/" method="GET" id="form">
+        <div>
+            <label for="FirstName">FirstName</label>
+            <input type="text" id="FirstName" name="FirstName" placeholder="Enter Your First Name">
+        </div>
+        <div>
+            <label for="LastName">LastName</label>
+            <input type="text" id="LastName" name="LastName" placeholder="Enter Your Last Name">
+        </div>
+        <div>
+
+        </div>
+        <div>
+            <label for="UserName">UserName</label>
+            <input type="text" id="UserName" name="UserName" placeholder="Enter Username">
+        </div>
+        <div>
+            <label for="Email">Email</label>
+            <input type="text" id="Email" name="Email" id="Email" placeholder="Enter Email">
+        </div>
+        <div>
+            <label for="Password">Password</label>
+            <input type="password" id="Password" name="password" placeholder="Password">
+        </div>
+        <div>
+            <label for="PasswordConfirm">confirm Password</label>
+            <input type="password" id="PasswordConfirm" name="PasswordConfirm" placeholder="Confirm Password">
+        </div>
+        <div>
+            <label for="Pincode">Pincode</label>
+            <input type="password" id="Pincode" name="Pincode" placeholder="Pincode" id="pincode">
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        const form = document.getElementById("form");
+        const FirstName = document.getElementById("FirstName");
+        const LastName = document.getElementById("LastName");
+        const UserName = document.getElementById("UserName");
+        const Email = document.getElementById("Email");
+        const Password = document.getElementById("Password");
+        const PasswordConfirm = document.getElementById("PasswordConfirm");
+        const Pincode = document.getElementById("Pincode");
+
+        form.addEventListener('submit', (e) => {
+            //Array of errors
+            let messages = [];
+
+            //Check if any validation errors
+            let FNamecheck = required(FirstName);
+            if (FNamecheck === true) {
+                e.preventDefault();
+                messages.push("FirstName can't be blank");
+            }
+
+            let LNamecheck = required(LastName);
+            if (FNamecheck === true) {
+                e.preventDefault();
+                messages.push("LastName can't be blank");
+            }
+
+            let UserNameCheck = required(UserName);
+            if (FNamecheck === true) {
+                e.preventDefault();
+                messages.push("UserName can't be blank");
+            } else if (UserName.value.length < 5 || UserName.value.length > 10) {
+                e.preventDefault();
+                messages.push("username should have a minimum of 5 characters and a maximum of 10 characters");
+            }
+            let UserNameAlphaNumericCheck = alphaNumeric(UserName);
+            if (UserNameAlphaNumericCheck === false) {
+                e.preventDefault();
+                messages.push("UserName must be alphaNumeric only");
+            }
+
+            let EmailCheck = required(Email);
+            if (EmailCheck === true) {
+                e.preventDefault();
+                messages.push("Email can't be blank");
+            }
+
+            let emailValid = checkEmail(Email);
+            if (emailValid === false) {
+                e.preventDefault();
+                messages.push("Please enter a valid email address");
+            }
+
+            let PasswordCheck = required(Password);
+            if (FNamecheck === true) {
+                e.preventDefault();
+                messages.push("Password can't be blank");
+            }
+
+            let PasswordConfirmCheck = required(PasswordConfirm);
+            if (FNamecheck === true) {
+                e.preventDefault();
+                messages.push("Password Confirm can't be blank");
+            }
+
+            let PincodeCheck = required(Pincode);
+            if (FNamecheck === true) {
+                e.preventDefault();
+                messages.push("Pincode can't be blank");
+            }
+
+            let i;
+            for (i = 0; i < messages.length; i++) {
+                alert(messages[i]);
+            }
+            if (messages.length === 0) {
+                e.preventDefault();
+                alert("success");
+            }
+
+            function required(inputtx) {
+            if (inputtx.value.length == 0 || inputtx.value === '' || inputtx.value == null) {
+                e.preventDefault();
+                return true;
+            }
+            return false;
+        }
+
+        function alphaNumeric(inputtxt) {
+            var letters = /^[A-Za-z0-9]+$/;
+            if (inputtxt.value.match(letters)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function checkEmail(inputemail) {
+
+            var validRegex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+            if (inputemail.value.match(validRegex)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        })
+
+    </script>
+</body>
+
+</html>
